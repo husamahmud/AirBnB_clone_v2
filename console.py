@@ -220,21 +220,21 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, args):
         """ Shows all objects, or all objects of a class"""
-        print_list = []
-
+        all_list = []
         if args:
-            args = args.split(' ')[0]  # remove possible trailing args
+            args = args.split(' ')[0]
             if args not in HBNBCommand.classes:
-                print("** class doesn't exist **")
+                print(" class doesn't exist ")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
-                    print_list.append(str(v))
+            else:
+                dic = storage.all(HBNBCommand.classes[args])
         else:
-            for k, v in storage._FileStorage__objects.items():
-                print_list.append(str(v))
-
-        print(print_list)
+            dic = storage.all()
+        for val in dic.values():
+            all_list.append(str(val))
+        print("[", end="")
+        print(", ".join(all_list), end="")
+        print("]")
 
     def help_all(self):
         """ Help information for the all command """
@@ -319,7 +319,7 @@ class HBNBCommand(cmd.Cmd):
         # iterate through attr names and values
         for i, att_name in enumerate(args):
             # block only runs on even iterations
-            if (i % 2 == 0):
+            if i % 2 == 0:
                 att_val = args[i + 1]  # following item is value
                 if not att_name:  # check for att_name
                     print("** attribute name missing **")
