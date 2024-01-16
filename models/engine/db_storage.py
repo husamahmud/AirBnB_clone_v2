@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 """This module defines a base class for managing DB storage in hbnb clone"""
-import json
 from os import getenv
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -11,6 +10,15 @@ from models.city import City
 from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
+
+classes = {
+    'User': User,
+    'Place': Place,
+    'State': State,
+    'City': City,
+    'Amenity': Amenity,
+    'Review': Review
+}
 
 
 class DBStorage:
@@ -27,6 +35,7 @@ class DBStorage:
         HBNB_MYSQL_HOST = getenv('HBNB_MYSQL_HOST')
         HBNB_MYSQL_DB = getenv('HBNB_MYSQL_DB')
         HBNB_ENV = getenv('HBNB_ENV')
+
         self.__engine = create_engine(
             '{]+{}://{}:{}@{}/{}'.format(dialect,
                                          driver,
@@ -36,7 +45,7 @@ class DBStorage:
                                          HBNB_MYSQL_DB,
                                          pool_pre_ping=True))
         if HBNB_ENV == 'test':
-            self.__engine = Base.metadata.create_all(self.__engine)
+            Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
         """Get all DB storage"""
