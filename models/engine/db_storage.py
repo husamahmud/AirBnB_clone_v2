@@ -37,7 +37,7 @@ class DBStorage:
         HBNB_ENV = getenv('HBNB_ENV')
 
         self.__engine = create_engine(
-            '{]+{}://{}:{}@{}/{}'.format(dialect,
+            '{}+{}://{}:{}@{}/{}'.format(dialect,
                                          driver,
                                          HBNB_MYSQL_USER,
                                          HBNB_MYSQL_PWD,
