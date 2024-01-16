@@ -134,8 +134,7 @@ class HBNBCommand(cmd.Cmd):
         if cls not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
-
-        inst = eval(cls)()
+        new_inst = HBNBCommand.classes[cls]()
         for arg in args_split[1:]:
             entry = arg.split('=')
             key, val = entry[0], entry[1]
@@ -144,9 +143,9 @@ class HBNBCommand(cmd.Cmd):
             if '_' in val:
                 val = val.replace('_', ' ')
             if key in HBNBCommand.types:
-                setattr(inst, key, val)
+                setattr(new_inst, key, val)
         storage.save()
-        print(inst.id)
+        print(new_inst.id)
 
     def help_create(self):
         """ Help information for the create method """
