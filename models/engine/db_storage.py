@@ -11,15 +11,6 @@ from models.amenity import Amenity
 from models.place import Place
 from models.review import Review
 
-classes = {
-    'User': User,
-    'Place': Place,
-    'State': State,
-    'City': City,
-    'Amenity': Amenity,
-    'Review': Review
-}
-
 
 class DBStorage:
     """This class defines a base class for managing DB"""
