@@ -1,6 +1,6 @@
 #!/usr/bin/python3
-"""Compress before sending"""
-from fabric import local, task
+"""Generates a .tgz archive from the contents of the web_static folder."""
+from fabric.api import local, task
 from datetime import datetime
 
 now = datetime.now().strftime('%Y%m%d%H%M%S')
