@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+"""Compress before sending"""
 from fabric import task
 from datetime import date
 from time import strftime
