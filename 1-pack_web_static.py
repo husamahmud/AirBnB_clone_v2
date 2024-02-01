@@ -1,17 +1,17 @@
 #!/usr/bin/python3
 """Compress before sending"""
-from fabric import task
-from datetime import date
-from time import strftime
+from fabric import local, task
+from datetime import datetime
 
-date = date.today()
+now = datetime.now().strftime('%Y%m%d%H%M%S')
 
 
-@task()
-def do_pack(c):
+@task
+def do_pack():
     """Generates a .tgz archive from the contents of the web_static folder."""
-    name = f"{date.year}{date.month}{date.day}{strftime('%I%M%S')}"
-    result = c.local(f"tar cvf web_static_{name}.rgz ./web_static", warn=True)
+    dir_name = f'web_static_{now}.tgz'
+    local('mkdir -p versions')
+    result = local(f'tar -cvzf versions/{dir_name} web_static', warn=True)
     if result.failed:
         return None
-    return result
+    return f'versions/{dir_name}'
