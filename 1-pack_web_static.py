@@ -1,17 +1,17 @@
 #!/usr/bin/python3
-"""Generates a .tgz archive from the contents of the web_static folder."""
-from fabric import task
+"""create a .tgz archive from contents of the web_static"""
+from fabric.api import local, task
 from datetime import datetime
 
 
 @task
 def do_pack():
-    """Generates a .tgz archive from the contents of the web_static folder."""
-    now = datetime.now().strftime('%Y%m%d%H%M%S')
+    """pack web_static folder"""
     try:
-        dir_name = f'web_static_{now}.tgz'
+        cur_date = datetime.now().strftime('%Y%m%d%H%M%S')
+        arch = f'web_static_{cur_date}.tgz'
         local('mkdir -p versions')
-        local(f'tar -cvzf versions/{dir_name} web_static')
-        return f'versions/{dir_name}'
+        local(f'tar -cvzf versions/{arch} web_static')
+        return f'versions/{arch}'
     except Exception:
         return None
