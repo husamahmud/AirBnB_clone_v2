@@ -17,5 +17,10 @@ def hbnb():
     return 'HBNB'
 
 
+@AirBnB.route('/c/<text>', strict_slashes=False)
+def c(text):
+    return 'C {}'.format(text.replace('_', ' '))
+
+
 if __name__ == '__main__':
-    AirBnB.run(host='0.0.0.0', port=5000)
+    AirBnB.run(host='0.0.0.0', port=2000)
