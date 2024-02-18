@@ -2,6 +2,7 @@
 """Starts a Flask web application"""
 from flask import Flask, render_template
 from models import storage
+from models.state import State
 
 AirBnB = Flask(__name__)
 
@@ -9,7 +10,7 @@ AirBnB = Flask(__name__)
 @AirBnB.route('/states_list', strict_slashes=False)
 def states_list():
     """Displays an HTML page only if n is an integer"""
-    return render_template('7-states_list.html', states=storage.all('State'))
+    return render_template('7-states_list.html', states=storage.all(State).values())
 
 
 @AirBnB.teardown_appcontext
