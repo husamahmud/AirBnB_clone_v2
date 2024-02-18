@@ -10,7 +10,7 @@ AirBnB = Flask(__name__)
 @AirBnB.route('/states_list', strict_slashes=False)
 def states_list():
     """Displays an HTML page only if n is an integer"""
-    return render_template('7-states_list.html', states=storage.all(State).values())
+    return render_template('7-states_list.html', states=storage.all(State))
 
 
 @AirBnB.teardown_appcontext
