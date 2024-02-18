@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""Starts a Flask web application"""
+"""script to fetch states list from storage"""
 from flask import Flask, render_template
 from models import storage
 from models.state import State
@@ -7,16 +7,16 @@ from models.state import State
 AirBnB = Flask(__name__)
 
 
+@AirBnB.teardown_appcontext
+def teardown(exc):
+    """close the session after each request"""
+    storage.close()
+
+
 @AirBnB.route('/states_list', strict_slashes=False)
 def states_list():
-    """Displays an HTML page only if n is an integer"""
-    return render_template('7-states_list.html', states=storage.all(State))
-
-
-@AirBnB.teardown_appcontext
-def teardown_db(exception):
-    """Closes the database again at the end of the request."""
-    storage.close()
+    """get state list from storage"""
+    return render_template("7-states_list.html", states=storage.all(State))
 
 
 if __name__ == '__main__':
